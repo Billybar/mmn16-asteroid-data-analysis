@@ -56,6 +56,7 @@ def load_data(file):
     try:
         df = pd.read_csv(file, sep=',')
         return df
+    # except and cast to clearer messages
     except pd.errors.EmptyDataError:
         raise ValueError("The file is empty")
     except pd.errors.ParserError:
