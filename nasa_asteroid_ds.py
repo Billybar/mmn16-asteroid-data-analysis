@@ -316,17 +316,10 @@ def plt_hist_common_orbit(df, save_path=None):
     # Adjust layout
     plt.tight_layout()
 
-    # Save or display the plot
-    if save_path:
-        plt.savefig(save_path)
-        plt.close()
-        print(f"Plot saved to {save_path}")
-    else:
-        try:
-            plt.show()
-        except Exception as e:
-            print(f"Could not display plot: {e}")
-            plt.close()
+    # Save the plot
+    plt.savefig("hist_diameter.png")
+    plt.close()
+    print("Plot saved as hist_diameter.png")
 
 
 #########################
