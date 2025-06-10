@@ -1,3 +1,19 @@
+"""
+NASA Asteroid Data Analysis - MMN 16
+
+Course: Programming and Data Analysis with Python (20606)
+Assignment: MMN 16 - Files and Data Analysis (Units 13-14)
+
+Author: Aminadav Bar-Chiam
+Student ID: 305413247
+
+This program analyzes NASA asteroid data from nasa.csv file.
+Performs data cleaning, statistical analysis, and creates visualizations.
+Generates histogram, pie chart, and regression plots as PNG files.
+
+Usage: python nasa_asteroid_ds.py
+"""
+
 import os
 import numpy as np
 import pandas as pd
@@ -332,8 +348,8 @@ def plt_pie_hazard(df):
         raise ValueError("DataFrame must contain 'Hazardous' column")
 
     # Count hazardous and non-hazardous asteroids
-    hazardous_count = (df['Hazardous'] == True).sum()
-    non_hazardous_count = (df['Hazardous'] == False).sum()
+    hazardous_count = df['Hazardous'].sum()
+    non_hazardous_count = len(df) - hazardous_count
 
     # Calculate percentages
     total = hazardous_count + non_hazardous_count
