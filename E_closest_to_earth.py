@@ -4,12 +4,18 @@ import pandas as pd
 from datetime import datetime
 
 def closest_to_earth(df):
-    # if not df
+    # Validate required columns
+    required_columns = ['Miss Dist.(kilometers)', 'Name']
+    for col in required_columns:
+        if col not in df.columns:
+            raise ValueError(f"DataFrame must contain '{col}' column")
 
-    # if not Miss Dist - raise error
+    # Check if DataFrame is empty
+    if df.empty:
+        raise ValueError("DataFrame is empty")
 
     # get index of closest astroid to earth
-    closest_dist_index = df['Miss Dist.(kilometers)'].idxmax()
+    closest_dist_index = df['Miss Dist.(kilometers)'].idxmin()
 
     # Get the name of the asteroid with closest_dist
     closest_dist_name = df.loc[closest_dist_index, 'Name']

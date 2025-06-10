@@ -6,8 +6,6 @@ from datetime import datetime
 
 def max_absolute_magnitude(df):
     """
-
-
     Parameters:
     df (pandas.DataFrame): DataFrame containing asteroid data
 

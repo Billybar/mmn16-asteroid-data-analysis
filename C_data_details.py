@@ -4,17 +4,25 @@ import pandas as pd
 from datetime import datetime
 
 def data_details(df):
-    if "Orbiting Body" in df:
-        df.drop('Orbiting Body', axis = 1)
+    # Make a copy of the dataframe
+    df_copy = df.copy()
 
-    if "Equinox" in df:
-        df.drop('Equinox', axis = 1)
+    # Drop specified columns
+    columns_to_drop = []
+    if "Orbiting Body" in df_copy.columns:
+        columns_to_drop.append('Orbiting Body')
 
-    if "Neo Reference ID" in df:
-        df.drop('Neo Reference ID', axis = 1)
+    if "Equinox" in df_copy.columns:
+        columns_to_drop.append('Equinox')
 
-    num_rows , num_cols = df.shape
-    column_titles = list(df.columns)
+    if "Neo Reference ID" in df_copy.columns:
+        columns_to_drop.append('Neo Reference ID')
+
+    if columns_to_drop:
+        df_copy = df_copy.drop(columns=columns_to_drop)
+
+    num_rows, num_cols = df_copy.shape
+    column_titles = list(df_copy.columns)
 
     data = (num_rows, num_cols, column_titles)
     return data

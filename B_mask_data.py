@@ -12,8 +12,7 @@ def mask_data(df):
     filtered_df = df.copy()
 
     # Filter for dates from year 2000 onwards
-    cutoff_date = pd.to_datetime('2000-01-01')
-    filtered_df = filtered_df[filtered_df['Close Approach Date'] >= cutoff_date]
+    filtered_df = filtered_df[filtered_df['Close Approach Date'].str.split('-').str[0].astype(int) >= 2000]
 
     return filtered_df
 

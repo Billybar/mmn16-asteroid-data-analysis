@@ -5,6 +5,15 @@ import numpy as np
 import pandas as pd
 
 def load_data(file):
+    """
+    Load CSV data file into a pandas DataFrame.
+
+    Parameters:
+    file (str): Path to the CSV file
+
+    Returns:
+    pandas.DataFrame: DataFrame containing the loaded data
+    """
     # if file parameter is None
     if file is None:
         raise ValueError("file parameter os None")
@@ -17,14 +26,9 @@ def load_data(file):
     if not os.path.exists(file):
         raise FileNotFoundError(f"File does not exist: {file}")
 
-    # Check if file was uploaded
-    try:
-        with open(file,'r') as df:
-            pass
-    except PermissionError:
-        raise PermissionError(f"Cannot access file: {file}. Check permissions.")
-    except Exception as e:
-        raise Exception(f"Error accessing file: {str(e)}")
+    # if file not of csv
+    if not file.lower().endswith('.csv'):
+        raise ValueError(f"File must have .csv extension, got: {file}")
 
     # If all checks pass, load the CSV
     try:

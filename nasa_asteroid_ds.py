@@ -32,14 +32,9 @@ def load_data(file):
     if not os.path.exists(file):
         raise FileNotFoundError(f"File does not exist: {file}")
 
-    # Check if file was uploaded
-    try:
-        with open(file,'r') as df:
-            pass
-    except PermissionError:
-        raise PermissionError(f"Cannot access file: {file}. Check permissions.")
-    except Exception as e:
-        raise Exception(f"Error accessing file: {str(e)}")
+    # if file not of csv
+    if not file.lower().endswith('.csv'):
+        raise ValueError(f"File must have .csv extension, got: {file}")
 
     # If all checks pass, load the CSV
     try:
@@ -161,9 +156,11 @@ def closest_to_earth(df):
     Returns:
     str: Name of the asteroid closest to Earth
     """
-    # if not df
-
-    # if not Miss Dist - raise error
+    # Validate required columns
+    required_columns = ['Miss Dist.(kilometers)', 'Name']
+    for col in required_columns:
+        if col not in df.columns:
+            raise ValueError(f"DataFrame must contain '{col}' column")
 
     # get index of closest astroid to earth
     closest_dist_index = df['Miss Dist.(kilometers)'].idxmin()
@@ -233,7 +230,6 @@ def plt_hist_diameter(df, save_path=None):
 
     Parameters:
     df (pandas.DataFrame): DataFrame containing asteroid data
-    save_path (str, optional): Path to save the plot. If None, the plot will be shown if possible.
 
     Returns:
     None: Displays or saves a histogram plot
@@ -477,32 +473,6 @@ def plt_linear_motion_magnitude(df, save_path=None):
     r_squared = 0.128  # Similar to what's shown in the solution document's stats box
     return r_squared
 
-"""
-Explanation of the correlation between asteroid velocity and miss distance:
-
-Based on the regression analysis, we can determine if there's a significant correlation between 
-an asteroid's velocity and its miss distance from Earth. The R-squared value tells us how much 
-of the variation in miss distance can be explained by velocity.
-
-If the R-squared value is high (close to 1), it suggests a strong linear relationship, meaning 
-that faster asteroids tend to have consistently different miss distances compared to slower ones.
-
-If the R-squared value is low (close to 0), it indicates little correlation, suggesting that 
-an asteroid's velocity doesn't strongly predict its miss distance from Earth.
-
-The p-value indicates whether the relationship is statistically significant. A p-value below 0.05 
-typically suggests that the correlation is unlikely to occur by random chance.
-
-From a physical perspective, this relationship is influenced by celestial mechanics, including:
-- Orbital dynamics
-- Gravitational interactions
-- Initial trajectories
-- Mass of the asteroids
-
-The slope of the regression line tells us the direction of the relationship:
-- A positive slope means faster asteroids tend to have greater miss distances
-- A negative slope means faster asteroids tend to have smaller miss distances
-"""
 
 
 #########################
